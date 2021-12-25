@@ -4,28 +4,33 @@ DATA = {
     'omlet': {
         'яйца, шт': 2,
         'молоко, л': 0.1,
-        'соль, ч.л.': 0.5,
+        'соль, ч.л.': 0.5
     },
     'pasta': {
-        'макароны, г': 0.3,
-        'сыр, г': 0.05,
+        'макароны, кг': 0.3,
+        'сыр, кг': 0.05
     },
     'buter': {
         'хлеб, ломтик': 1,
         'колбаса, ломтик': 1,
         'сыр, ломтик': 1,
-        'помидор, ломтик': 1,
+        'помидор, ломтик': 1
     },
-
+    'charlotte': {
+        'яйца, шт': 4,
+        'мука, кг': 0.2,
+        'сахар, кг': 0.2,
+        'яблоки, кг': 0.5
+    }
 }
 
 
 def recipes(request, recipe):
     if recipe in DATA:
         compound = DATA[recipe].copy()
-        for a, b in compound.items():
+        for ingredient, amount in compound.items():
             servings = int(request.GET.get('servings', 1))
-            compound[a] = b * servings
+            compound[ingredient] = amount * servings
     else:
         compound = {}
     context = {
